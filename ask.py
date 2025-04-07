@@ -2,8 +2,8 @@ from definition import vn
 import os
 
 def vanna_ask(user_query, db_path, history):
-    # similar_question = vn.get_similar_question_sql(user_query)
-    # print('\nsimilar question from training data >', similar_question)
+    similar_question = vn.get_similar_question_sql(user_query)
+    print('\nsimilar question from training data >', similar_question)
     # related_ddl = vn.get_related_ddl(user_query)
     # print('\nget related ddl >', related_ddl)
     print('\n-------------------------------')
@@ -14,7 +14,7 @@ def vanna_ask(user_query, db_path, history):
     # result = vn.ask(user_query)
 
     # sql_query = vn.generate_sql(user_query)
-    generate_sql_response = vn.generate_sql(user_query, history=history, allow_llm_to_see_data=True) # currently LLM will accept only the last 2 conversations as part of history in its prompt
+    generate_sql_response = vn.generate_sql(user_query, history=history) # currently LLM will accept only the last 2 conversations as part of history in its prompt
     sql_query = generate_sql_response[0]
     final_tokens['input_tokens'] += generate_sql_response[1]['input_tokens']
     final_tokens['output_tokens'] += generate_sql_response[1]['output_tokens']

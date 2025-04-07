@@ -119,14 +119,15 @@ class MyVanna(ChromaDB_VectorStore, OpenAI_Chat):
         if 'history' in kwargs.keys():
             chat_history = kwargs.get('history')
             question_sql_list = chat_history[-2:]
-        # question_sql_list = self.get_similar_question_sql(question, **kwargs)
         print("chat history/question sql list in base.py >", question_sql_list)
+        similar_question = self.get_similar_question_sql(question, **kwargs)
+        similar_question = similar_question[:1] # gives only the topmost result
         ddl_list = self.get_related_ddl(question, **kwargs)
         doc_list = self.get_related_documentation(question, **kwargs)
         prompt = self.get_sql_prompt(
             initial_prompt=initial_prompt,
             question=question,
-            question_sql_list=question_sql_list,
+            question_sql_list=similar_question+question_sql_list,
             ddl_list=ddl_list,
             doc_list=doc_list,
             **kwargs,

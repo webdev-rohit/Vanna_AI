@@ -54,11 +54,8 @@ for idx, block in enumerate(st.session_state.chat_blocks):
     if block['plotly_code']:  # Means it's not empty
         print("\nplotly code exists")
         st.markdown("##### 📈 Plotly Result")
+        print('image_path >', image_path)
         st.image(image_path)
-    else:
-        print("\nplotly code does not exist")
-        if os.path.exists(image_path):
-            os.remove(image_path)
 
     if block['tokens']:
         st.markdown("##### 💰 Tokens used Breakdown")
@@ -115,7 +112,7 @@ if submitted and user_input.strip() != "":
             "nl_summary": nl_summary,
             "sql_query": sql_query,
             "sql_result": sql_result,
-            "plotly_code": "",
+            "plotly_code": plotly_code,
             "tokens": tokens,
             "price": price,
             "follow_ups": follow_ups

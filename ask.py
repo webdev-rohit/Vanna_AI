@@ -46,7 +46,7 @@ def vanna_ask(user_query, db_path, history):
     print('final_tokens after generate_followup_questions >', final_tokens)
     print('\n-------------------------')
 
-    chart_status = vn.should_generate_chart(sql_result) # this will return false if 0 or 1 rows exist in the df
+    chart_status = vn.should_generate_chart(sql_result) # this will return false if the DataFrame has more than one row and has numerical columns.
     print('chart_status >', chart_status)
     if chart_status == True:
         print('generating plot----')

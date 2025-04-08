@@ -38,3 +38,8 @@ def add_data_to_training(db_path, user_query, sql_query):
     print(training_data.shape)
 
     return "Training successful"
+
+def trained_data():
+    df_result = vn.get_training_data()
+    df_result = df_result.to_dict(orient="records")
+    return df_result

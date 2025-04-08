@@ -2,7 +2,7 @@ from fastapi import FastAPI, HTTPException
 import uvicorn
 
 from models import TrainInput, AddToTraining, AskInput
-from train import train_from_a_db, add_data_to_training
+from train import train_from_a_db, add_data_to_training, trained_data
 from ask import vanna_ask
 
 app = FastAPI()
@@ -34,15 +34,25 @@ async def add_to_training(input: AddToTraining):
     except Exception as e:
         return f"Error: {e}"
     
+@app.get('/show_trained_data')
+async def show_trained_data():
+    try:
+        result = trained_data()
+        return result
+    except Exception as e:
+        return f"Error: {e}"
+    
 @app.post('/ask')
-async def train(input:AskInput):
+async def ask(input:AskInput):
     try:
         print("received user query: ", input.user_query)
         print("received training db file path: ", input.db_path)
         result = vanna_ask(input.user_query, input.db_path, input.history)
         return {"success":1, "message":result} 
     except Exception as e:
-        raise HTTPException(status_code=500, detail={"error":str(e)}) 
+        # raise HTTPException(status_code=500, detail={"error":str(e)})
+        print('Error in vn.ask >', e)
+        return {"success":0, "message":"Sorry, I am unable to answer your query at the moment."} 
     
 if __name__=="__main__":
     uvicorn.run(app=app,host='0.0.0.0',port=5050)

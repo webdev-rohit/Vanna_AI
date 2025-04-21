@@ -77,7 +77,8 @@ def vanna_ask(user_query, db_path, history):
             print('\n-------------------------')
 
             plotly_figure = vn.get_plotly_figure(plotly_code, sql_result)
-            image_path = os.path.join('D:\Mahindra finance\Projects_data\Vanna_AI\chart_images',"plotly_image.png")
+            chart_images_path = os.path.abspath('chart_images')
+            image_path = os.path.join(chart_images_path,"plotly_image.png")
             plotly_figure.write_image(image_path, format="png")
         else:
             plotly_code = ""

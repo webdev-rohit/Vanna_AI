@@ -18,6 +18,9 @@ if "chat_blocks" not in st.session_state:
 if "user_history" not in st.session_state:
     st.session_state.user_history = []
 
+# Initializing db path
+db_path = os.path.abspath('sqlite_nbfc_data.db')
+
 # ===============================
 # PAGE 1: ASK THE BOT
 # ===============================
@@ -30,7 +33,7 @@ if selected_page == "Ask the bot":
         payload = {
             "user_query": query,
             "history": st.session_state.user_history,
-            "db_path": "D:\\Mahindra finance\\Projects_data\\Vanna_AI\\sqlite_nbfc_data.db\\nbfc_data.db"
+            "db_path": os.path.join(db_path, "nbfc_data.db")
         }
 
         try:
@@ -59,11 +62,11 @@ if selected_page == "Ask the bot":
         if block['sql_result']:
             st.markdown("##### 📊 SQL Result")
             df_result = pd.DataFrame(block['sql_result'])
-            st.dataframe(df_result)
+            # st.dataframe(df_result)
             st.dataframe(df_result.head(1000))
 
-        path = "D:\\Mahindra finance\\Projects_data\\Vanna_AI\\chart_images"
-        image_path = os.path.join(path, "plotly_image.png")
+        chart_images_path = os.path.abspath('chart_images')
+        image_path = os.path.join(chart_images_path, "plotly_image.png")
         if block['plotly_code']:  # Means it's not empty
             print("\nplotly code exists")
             st.markdown("##### 📈 Plotly Result")
@@ -95,7 +98,7 @@ if selected_page == "Ask the bot":
         # 👍 Thumbs Up Button to Submit for Training
         if st.button("👍 Add to Training", key=f"thumbs_up_{idx}"):
             training_payload = {
-                "db_path": "D:\\Mahindra finance\\Projects_data\\Vanna_AI\\sqlite_nbfc_data.db\\nbfc_data.db",
+                "db_path": os.path.join(db_path, "nbfc_data.db"),
                 "user_query": block['user_input'],
                 "sql_query": block['sql_query']
             }
@@ -170,7 +173,7 @@ elif selected_page == "Train the bot":
         else:
             # Make POST request to API
             training_payload = {
-                "db_path": "D:\\Mahindra finance\\Projects_data\\Vanna_AI\\sqlite_nbfc_data.db\\nbfc_data.db",
+                "db_path": os.path.join(db_path, "nbfc_data.db"),
                 "user_query": user_query,
                 "sql_query": sql_query
             }

@@ -18,7 +18,14 @@ The Project is a demonstration of a RAG-to-SQL generation scenario for an NBFC d
 
 ## Watch the demo 📽️
 
-<video src="streamlit_NBFC_VannaAI_demo.webm" width="600" autoplay loop></video>
+Download the file - streamlit_NBFC_VannaAI_demo.webm provided in this repository to see the Streamlit demo.
+
+## Features and functionalities
+
+1) Gives the SQL Query, NL Summary, SQL Result, Generated Plot graph images, Follow-up queries, Tokens and cost utilized for every user query asked.
+2) Supports conversational history for answering follow-up questions based on context.
+3) Has 'Add question to Training' feature. Alongwith it you can separately train a question and its SQL query in 'Train the bot' section and also view the trained data.
+4) For Geeks - Code has implementations of Behavior customizations of the standard methods of VannaBase class in definition.py file.
 
 ## Code setup
 
@@ -29,7 +36,7 @@ To set up and run the project, follow these steps:
 git clone https://github.com/webdev-rohit/Vanna_AI.git
 ```
 
-2. Virtual environment creation and activation in the project directory (Windows)-
+2. Virtual environment creation and activation in the project directory (Windows) -
 ```bash
 python -m venv venv
 cd <project_directory>/venv/Scripts
@@ -52,3 +59,5 @@ python app.py
 ```bash
 python -m streamlit run chat_app.py
 ```
+
+Connect with me on my email - rohitvishssj5@gmail.com. Contributions are welcome!
